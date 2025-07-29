@@ -1,32 +1,15 @@
-# _Sample project_
+## ESP32 Smartwatch Firmware
 
-(See the README.md file in the upper level 'examples' directory for more information about examples.)
+This project is a full-featured, open-source smartwatch firmware built from the ground up using the ESP-IDF framework. It runs on the ESP32-S3-Touch-LCD-1.28 development board and demonstrates real-time task scheduling, graphical UI rendering with LVGL, I2C peripheral communication, and low-power design strategies.
 
-This is the simplest buildable example. The example is used by command `idf.py create-project`
-that copies the project to user specified path and set it's name. For more information follow the [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project)
+The firmware includes a digital clock display, compass functionality using the onboard IMU, a stopwatch, and swipe-based navigation between pages. All peripherals are configured and managed without relying on Arduino libraries, showcasing embedded C development and FreeRTOS fundamentals in a real-world wearable application.
+## Features
 
-
-
-## How to use example
-We encourage the users to use the example as a template for the new projects.
-A recommended way is to follow the instructions on a [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project).
-
-## Example folder contents
-
-The project **sample_project** contains one source file in C language [main.c](main/main.c). The file is located in folder [main](main).
-
-ESP-IDF projects are built using CMake. The project build configuration is contained in `CMakeLists.txt`
-files that provide set of directives and instructions describing the project's source files and targets
-(executable, library, or both). 
-
-Below is short explanation of remaining files in the project folder.
-
-```
-├── CMakeLists.txt
-├── main
-│   ├── CMakeLists.txt
-│   └── main.c
-└── README.md                  This is the file you are currently reading
-```
-Additionally, the sample project contains Makefile and component.mk files, used for the legacy Make based build system. 
-They are not used or needed when building with CMake and idf.py.
+- **Real-Time Clock**: Displays the current time using the internal RTC or synchronized source.
+- **Graphical UI**: Built using LVGL with support for smooth screen transitions and swiping between pages.
+- **Compass**: Reads and visualizes direction using the onboard IMU (6-axis sensor).
+- **Stopwatch**: Start, pause, and reset functionality with visual feedback.
+- **Touch Input**: Navigate the UI using the capacitive touch screen with swipe gesture recognition.
+- **FreeRTOS Integration**: All tasks are handled through a real-time operating system for concurrency and responsiveness.
+- **Low Power Modes**: Screen timeout and sleep logic implemented to preserve battery life.
+- **Modular Codebase**: Peripherals and UI components are modularized for easier extension and maintenance.
