@@ -42,3 +42,8 @@ This firmware is designed specifically for the **ESP32-S3** microcontroller and 
 ---
 ## Building from Source
 COMING SOON
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
