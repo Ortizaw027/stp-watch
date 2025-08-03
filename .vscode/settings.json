@@ -16,5 +16,10 @@
     "--query-driver=c:\\ESPTOOLS\\tools\\xtensa-esp-elf\\esp-14.2.0_20241119\\xtensa-esp-elf\\bin\\xtensa-esp32-elf-gcc.exe",
     "--compile-commands-dir=${workspaceFolder}\\build"
   ],
-  "idf.flashType": "UART"
+  "idf.flashType": "UART",
+  "files.associations": {
+    "esp_lcd_panel_ops.h": "c",
+    "cstdint": "c"
+  },
+  "C_Cpp.errorSquiggles": "disabled"
 }

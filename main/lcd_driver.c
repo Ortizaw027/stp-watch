@@ -1,6 +1,7 @@
 
 #include "esp_log.h"
 #include "esp_check.h"
+#include "esp_timer.h"
 #include "lvgl.h"
 #include "lcd_driver.h"
 #include "driver/gpio.h"
@@ -20,7 +21,7 @@
 #define LCD_HOST          SPI2_HOST
 
 
-void lcd_init()
+esp_lcd_panel_handle_t lcd_init(void)
 {
 
     ESP_LOGI("LCD", "Turn on LCD Backlight");
@@ -73,7 +74,7 @@ void lcd_init()
 #if ESP_IDF_VERSION < ESP_IDF_VERSION_VAL(5, 0, 0)
         .color_space = ESP_LCD_COLOR_SPACE_RGB,
 #else
-        .rgb_endian = LCD_RGB_ENDIAN_RGB,
+        .rgb_endian = LCD_RGB_ENDIAN_BGR,
 #endif
         .bits_per_pixel = 16,                           // Implemented by LCD command `3Ah` (16/18)
         // .vendor_config = &vendor_config,            // Uncomment this line if use custom initialization commands
@@ -87,17 +88,19 @@ void lcd_init()
     ESP_ERROR_CHECK(esp_lcd_panel_disp_on_off(panel_handle, true));
 #endif
 
+esp_lcd_panel_mirror(panel_handle, true, false);
+esp_lcd_panel_swap_xy(panel_handle, false);
 
+return panel_handle;
 }
 
-void lvgl_init()
+void disp_update(lv_display_t * disp, const lv_area_t * area, uint8_t * px_buf) 
 {
- void lv_init(void);
+    display_context_t * ctx = lv_display_get_user_data(disp);
 
-if(!lv_is_initialized())
-{
-    ESP_LOGE("LVGL", "Install GC9A01 panel driver");
+    esp_lcd_panel_draw_bitmap(ctx -> panel,
+                              area -> x1, area -> y1,
+                              area -> x2 + 1, area -> y2 + 1,
+                              px_buf);
 }
 
-
-}
