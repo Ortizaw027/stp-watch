@@ -16,3 +16,4 @@ dependencies:
   #   public: true
   espressif/esp_lcd_gc9a01: ^2.0.2
   espressif/esp_lvgl_port: ^2.6.0
+  lvgl/lvgl: ^9.3.0

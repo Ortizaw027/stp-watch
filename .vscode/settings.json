@@ -19,7 +19,8 @@
   "idf.flashType": "UART",
   "files.associations": {
     "esp_lcd_panel_ops.h": "c",
-    "cstdint": "c"
+    "cstdint": "c",
+    "lvgl.h": "c"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }

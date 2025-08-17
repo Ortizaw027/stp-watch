@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include "lvgl.h"
+#include "UI.h"
+#include "lvgl_tick.h"
 #include "esp_log.h"
-#include "esp_timer.h"
 #include "lcd_driver.h"
 
 #define DISP_HOR_RES    240
@@ -9,15 +10,17 @@
 #define DISP_BUF_FACTOR  10
 #define BYTES_PER_PIXEL   2
 
-uint32_t my_millis(void);
+#define DISP_BUF_SIZE     ((DISP_HOR_RES * DISP_VER_RES) / DISP_BUF_FACTOR * BYTES_PER_PIXEL)
+
 void my_flush_cb();
 
 void app_main(void)
 {
 
-     esp_lcd_panel_handle_t panel_handle = lcd_init(); // Initializes lcd screen
+     esp_lcd_panel_handle_t panel_handle = lcd_init(); // Initializes lcd screen(GC9A01)
     
      lv_init(); //Needed before anything can be done with lvgl
+     ESP_LOGI("LVGL", "LVGL initialized.");
 
      //Checks if lvgl is intialized correctly and outputs and error message if not
      if (!lv_is_initialized())
@@ -26,8 +29,6 @@ void app_main(void)
         return;
      }
 
-     lv_tick_set_cb(my_millis);
-
      lv_display_t * display1 = lv_display_create(240, 240);
 
      display_context_t * ctx = malloc(sizeof(display_context_t));
@@ -35,28 +36,16 @@ void app_main(void)
 
      lv_display_set_user_data(display1, ctx);
 
-     static uint8_t buf[DISP_HOR_RES * DISP_VER_RES / DISP_BUF_FACTOR * BYTES_PER_PIXEL];
-     lv_display_set_buffers(display1, buf, NULL, sizeof(buf), LV_DISPLAY_RENDER_MODE_FULL);
+     uint8_t *buf1 = heap_caps_malloc(DISP_BUF_SIZE, MALLOC_CAP_DMA);
+     uint8_t *buf2 = heap_caps_malloc(DISP_BUF_SIZE, MALLOC_CAP_DMA);
+     lv_display_set_buffers(display1, buf1, buf2, DISP_BUF_SIZE, LV_DISPLAY_RENDER_MODE_PARTIAL);
 
      lv_display_set_flush_cb(display1, my_flush_cb);
 
-         // --- Start LVGL UI setup here ---
+     init_lvgl_tick(); //Starts millisecond timer for lvgl tick
 
-    // Get active screen
-    lv_obj_t * scr = lv_scr_act();
-
-    // Set background color to deep blue
-    lv_obj_set_style_bg_color(scr, lv_color_hex(0x003a57), LV_PART_MAIN);
-    lv_obj_set_style_bg_opa(scr, LV_OPA_COVER, LV_PART_MAIN);
-
-    // Create a white label and center it
-    lv_obj_t * label = lv_label_create(scr);
-    lv_label_set_text(label, "Hello world");
-    lv_obj_set_style_text_color(label, lv_color_hex(0xffffff), LV_PART_MAIN);
-    lv_obj_align(label, LV_ALIGN_CENTER, 0, 1);
-
-    // --- End LVGL UI setup ---
-
+     my_ui();
+     
      while(1){
       lv_timer_handler();
       vTaskDelay(pdMS_TO_TICKS(5));
@@ -64,13 +53,7 @@ void app_main(void)
      
 }
 
-uint32_t my_millis()
-{
-   return esp_timer_get_time() / 1000;
-}
 
-       
-  
 void my_flush_cb(lv_display_t * disp, const lv_area_t * area, uint8_t * px_buf)
 {
   disp_update(disp, area, px_buf);

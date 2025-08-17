@@ -1,5 +1,4 @@
-#ifndef LCD_DRIVER_H
-#define LCD_DRIVER_H
+#pragma once
 
 #include "esp_lcd_panel_io.h"
  
@@ -15,5 +14,3 @@ typedef struct
 esp_lcd_panel_handle_t lcd_init(void);
 
 void disp_update(lv_display_t * disp, const lv_area_t * area, uint8_t * px_buf);
-
-#endif

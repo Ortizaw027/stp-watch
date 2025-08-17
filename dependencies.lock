@@ -45,13 +45,14 @@ dependencies:
     component_hash: b702d642e03e95928046d5c6726558e6444e112420c77efa5fdb6650b0a13c5d
     dependencies: []
     source:
-      registry_url: https://components.espressif.com
+      registry_url: https://components.espressif.com/
       type: service
     version: 9.3.0
 direct_dependencies:
 - espressif/esp_lcd_gc9a01
 - espressif/esp_lvgl_port
 - idf
-manifest_hash: 868763cc6570b80b6ba77f3702e1d08e3af5b36f45e2f13cde34dae8849cffaa
+- lvgl/lvgl
+manifest_hash: 72849ea638275a888d1779dcc8e39a2b466a1040a911a77630fb49b2cc4354e2
 target: esp32s3
 version: 2.0.0

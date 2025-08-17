@@ -72,7 +72,7 @@ esp_lcd_panel_handle_t lcd_init(void)
     const esp_lcd_panel_dev_config_t panel_config = {
         .reset_gpio_num = PIN_NUM_LCD_RST,      // Set to -1 if not use
 #if ESP_IDF_VERSION < ESP_IDF_VERSION_VAL(5, 0, 0)
-        .color_space = ESP_LCD_COLOR_SPACE_RGB,
+        .color_space = ESP_LCD_COLOR_SPACE_BGR,
 #else
         .rgb_endian = LCD_RGB_ENDIAN_BGR,
 #endif
@@ -82,6 +82,7 @@ esp_lcd_panel_handle_t lcd_init(void)
     ESP_ERROR_CHECK(esp_lcd_new_panel_gc9a01(io_handle, &panel_config, &panel_handle));
     ESP_ERROR_CHECK(esp_lcd_panel_reset(panel_handle));
     ESP_ERROR_CHECK(esp_lcd_panel_init(panel_handle));
+    esp_lcd_panel_invert_color(panel_handle, true);
 #if ESP_IDF_VERSION < ESP_IDF_VERSION_VAL(5, 0, 0)
     ESP_ERROR_CHECK(esp_lcd_panel_disp_off(panel_handle, false));
 #else
@@ -103,4 +104,3 @@ void disp_update(lv_display_t * disp, const lv_area_t * area, uint8_t * px_buf)
                               area -> x2 + 1, area -> y2 + 1,
                               px_buf);
 }
-
