@@ -104,8 +104,8 @@ esp_err_t connect_wifi()
     //Begin the start of the wifi driver
     wifi_config_t wifi_config = {
         .sta = {
-            .ssid = "SpectrumSetup-83",
-            .password = "aparttown302",
+            .ssid = "WIFI_SSID",                        // You must replace this with your Wi-Fi's SSID or it wont connect
+            .password = "WIFI_PASS",                    // You must replace this with your Wi-Fi's password or it wont connect
             .threshold.authmode = WIFI_AUTH_WPA2_PSK,
             .pmf_cfg={
                 .capable = true,
