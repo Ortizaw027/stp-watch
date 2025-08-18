@@ -1,2 +1,30 @@
-idf_component_register(SRCS "wifi.c" "datetime.c" "lvgl_tick.c" "UI.c" "main.c" "lcd_driver.c"
-                    INCLUDE_DIRS ".")
+idf_component_register(
+    SRCS
+        "main.c"                       
+        "ui/labels.c" 
+        "ui/screen.c"                    
+        "drivers/lcd_driver.c"         
+        "drivers/lvgl_tick.c"          
+        "connectivity/wifi.c"          
+        "connectivity/time_sync.c"     
+        "fonts/inter_14.c"             
+        "fonts/inter_20.c"
+        "fonts/inter_32.c"
+        "fonts/inter_48.c"
+        
+    INCLUDE_DIRS
+        "."                            
+        "ui"                           
+        "drivers"                      
+        "connectivity"                 
+        "fonts"                        
+        
+    REQUIRES
+        lvgl
+        esp_lvgl_port
+        esp_lcd_gc9a01
+        esp_wifi
+        esp_netif
+        nvs_flash
+        lwip
+)

@@ -3,9 +3,9 @@
 #include "lvgl.h"
 #include "lcd_driver.h"
 #include "lvgl_tick.h"
-#include "UI.h"
+#include "screen.h"
 #include "wifi.h"
-#include "datetime.h"
+#include "time_sync.h"
 
 
 
@@ -33,7 +33,8 @@ void app_main(void)
       ESP_LOGE("LVGL", "LVGL failed to initialize.");
       return;
    }
-
+   
+   //Creates a display in lvlg the correct size of our actual display
    lv_display_t * display1 = lv_display_create(240, 240);
 
    display_context_t * ctx = malloc(sizeof(display_context_t));
@@ -50,10 +51,10 @@ void app_main(void)
 
    //Starts millisecond timer for lvgl tick
    init_lvgl_tick(); 
-   
 
+   //Init SNTP for time sync
    ESP_LOGI("SNTP", "Initializing SNTP...");
-   if(datetime_init() == ESP_OK)
+   if(time_sync_init() == ESP_OK)
    {
       ESP_LOGI("SNTP", "SNTP initialized succesfully");
    }
@@ -62,8 +63,7 @@ void app_main(void)
       ESP_LOGE("SNTP", "SNTP failed to intialize");
    }
 
-   //LVGL UI code
-   my_ui();
+   create_home_screen();
      
    while(1)
    {
