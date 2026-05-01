@@ -2,7 +2,7 @@
 
 The STP Smartwatch is a compact, wearable device built on the **ESP32-S3-Touch-LCD-1.28 development board**. This simple smartwatch firmware provides a fully functional touchscreen interface, step tracking, a stopwatch, and battery monitoring. It is designed with modular, readable code, allowing users to easily adapt it as firmware for their own boards or reuse portions of the code for personal projects and experimentation.
 ---
-## 🚧 Version 2 – Coming Soon 🚧
+## Version 2 – Coming Soon
 
 - **Custom PCB & Enhanced Sensors** – High-accuracy heart rate, SpO₂, temperature, and advanced motion tracking for precise activity monitoring.  
 - **Advanced Health & Activity Tracking** – Heart rate monitor, improved step counter, and gesture detection.  
@@ -44,7 +44,7 @@ Drivers and UI components are separated to make the code easier to understand, m
 - **Onboard IMU sensor** for motion detection and step tracking  
 - USB-C connection for power, charging, and flashing  
 
-> ⚠️ This firmware was designed specifically for the ESP32-S3-Touch-LCD-1.28 development board and may not work on other ESP32 variants without modification.
+> This firmware was designed specifically for the ESP32-S3-Touch-LCD-1.28 development board and may not work on other ESP32 variants without modification.
 
 ---
 
